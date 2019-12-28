@@ -30,7 +30,7 @@ namespace Bitcoin_Wallet
                     Write(
                         "Enter operation [\"Create\", \"Recover\", \"Balance\", \"History\", \"Receive\", \"Send\", \"Exit\"]: ");
                     input = ReadLine().ToLower().Trim();
-                } while (!((IList) avaliableOperations).Contains(input));
+                } while (!((IList)avaliableOperations).Contains(input));
 
                 switch (input)
                 {
@@ -105,7 +105,7 @@ namespace Bitcoin_Wallet
                 WriteLine("Wrong wallet or password!");
                 return;
             }
-                // TODO: Implement the Displaying of Balanace and Sending the Transaction with the correct amount.
+            // TODO: Implement the Displaying of Balanace and Sending the Transaction with the correct amount.
 
             // if (broadcastResponse.Success)
             // {
@@ -129,20 +129,20 @@ namespace Bitcoin_Wallet
                 return;
             }
 
-                // TODO: Create the Client and get the Received History of the Account
+            // TODO: Create the Client and get the Received History of the Account
 
             string header = "-----COINS RECEIVED-----";
             WriteLine(header);
 
-                // TODO: Display the Received History of the Account
+            // TODO: Display the Received History of the Account
 
             WriteLine(new string('-', header.Length));
-    
-                 // TODO: Get the Spent History of the Account
+
+            // TODO: Get the Spent History of the Account
 
             string footer = "-----COINS SPENT-----";
             WriteLine(footer);
-                 // TODO: Display the Spent History of the Account
+            // TODO: Display the Spent History of the Account
             WriteLine(new string('-', footer.Length));
         }
 
@@ -181,6 +181,10 @@ namespace Bitcoin_Wallet
         private static void RecoverWallet(string password, Mnemonic mnemonic, string date)
         {
             // TODO: Implement the logic to Recover and Save the Wallet.
+            Network currentNetwork = Network.TestNet;
+
+            Random rand = new Random();
+            Safe safe = Safe.Recover(mnemonic, password, walletFilePath + "RecoveredWalletNum" + rand.Next() + ".json", currentNetwork, creationTime: DateTimeOffset.ParseExact(date, "yyyy-MM-dd", CultureInfo.InvariantCulture));
             WriteLine("Wallet successfully recovered");
         }
 
@@ -225,7 +229,7 @@ namespace Bitcoin_Wallet
                         "Write down and keep in SECURE place your private keys. Only through them you can access your coins!");
 
                     // TODO: Display the Addresses and the Correspondig Private Keys.
-                    for (int i = 0; i < 10; i++ )
+                    for (int i = 0; i < 10; i++)
                     {
                         WriteLine($"Address: {safe.GetAddress(i) } -> Private key: {safe.FindPrivateKey(safe.GetAddress(i))}");
                     }
